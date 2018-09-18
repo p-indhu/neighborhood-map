@@ -14,13 +14,42 @@ class App extends Component {
         {type: 'restaurants', title: 'Rainbow Family Restaurant5', location: {lat: 36.1794732, lng: -115.2880869}},
         {type: 'restaurants', title: 'Rainbow Family Restaurant6', location: {lat: 36.1194732, lng: -115.2380869}}
       ],
-      locationType : 'all'
+      locationType : 'all',
+      selectedLocations : [
+        {type: 'parks', title: 'Rainbow Family Park', location: {lat: 36.1494732, lng: -115.2480869}},
+        {type: 'parks', title: 'Rainbow Family Park2', location: {lat: 36.1994732, lng: -115.2180869}},
+        {type: 'parks', title: 'Rainbow Family Park3', location: {lat: 36.1294732, lng: -115.2680869}},
+        {type: 'restaurants', title: 'Rainbow Family Restaurant4', location: {lat: 36.1394732, lng: -115.2280869}},
+        {type: 'restaurants', title: 'Rainbow Family Restaurant5', location: {lat: 36.1794732, lng: -115.2880869}},
+        {type: 'restaurants', title: 'Rainbow Family Restaurant6', location: {lat: 36.1194732, lng: -115.2380869}}
+      ],
+      selectedLocation : ''
     }
 
     changeLocationType(event) {
         //console.log(event.target.value);
-        this.setState({locationType : event.target.value})
+        this.setState({locationType : event.target.value});
+        this.setState({selectedLocation: ''});
+        this.listLocations(event.target.value);
+
         //console.log(this.state.locationType);
+    }
+
+    listLocations(type) {
+        let selectedLocations = [];
+        if(type === 'all') {
+            selectedLocations = this.state.locations;
+        }
+        else {
+            selectedLocations = this.state.locations.filter(location => location.type===type)
+        }
+
+        this.setState({selectedLocations : selectedLocations});
+    }
+
+    locationClicked(event) {
+        console.log(event.target.innerHTML);
+        this.setState({selectedLocation : event.target.innerHTML})
     }
 
     render() {
@@ -38,7 +67,22 @@ class App extends Component {
                       <option value='parks'>Parks</option>
                   </select>
               </div>
-              <MapContainer locations={this.state.locations} locationType={this.state.locationType}/>
+              <div>
+                  <ul>
+                      {
+                          this.state.selectedLocations.map(location => (
+                              <li key={location.title} onClick={(event) => this.locationClicked(event)}>
+                                  {location.title}
+                              </li>
+                          ))
+                      }
+                  </ul>
+              </div>
+              <MapContainer
+                  locations={this.state.locations}
+                  locationType={this.state.locationType}
+                  selectedLocation={this.state.selectedLocation}
+              />
           </div>
     );
   }

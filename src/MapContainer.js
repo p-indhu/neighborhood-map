@@ -79,7 +79,7 @@ class MapContainer extends React.Component {
     });
   }
 
-  filter(locationType) {
+  filter(locationType, selectedLocation) {
     console.log("filter called");
     //let bounds = new google.maps.LatLngBounds();
     let markers = this.state.markers;
@@ -90,6 +90,12 @@ class MapContainer extends React.Component {
                 markers[i].setMap(null);
             else {
                 markers[i].setMap(map);
+                if(markers[i].title === selectedLocation) {
+                    markers[i].setAnimation(google.maps.Animation.BOUNCE);
+                }
+                else {
+                    markers[i].setAnimation(null);
+                }
             }
         }
     }
@@ -99,12 +105,24 @@ class MapContainer extends React.Component {
                 markers[i].setMap(null);
             else {
                 markers[i].setMap(map);
+                if(markers[i].title === selectedLocation) {
+                    markers[i].setAnimation(google.maps.Animation.BOUNCE);
+                }
+                else {
+                    markers[i].setAnimation(null);
+                }
             }
         }
     }
     else if(locationType === 'all') {
         for(let i=0; i<markers.length; i++) {
             markers[i].setMap(map);
+            if(markers[i].title === selectedLocation) {
+                markers[i].setAnimation(google.maps.Animation.BOUNCE);
+            }
+            else {
+                markers[i].setAnimation(null);
+            }
         }
     }
   }
@@ -145,7 +163,7 @@ class MapContainer extends React.Component {
       <div>
         <div id="map" style={{width: '100vw', height: '100vh'}}>
             {
-              this.filter(this.props.locationType)
+              this.filter(this.props.locationType, this.props.selectedLocation)
             }
         </div>
       </div>
