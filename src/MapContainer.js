@@ -64,11 +64,12 @@ class MapContainer extends React.Component {
         marker.addListener('click', function() {
           if(infoWindow.marker != marker) {
             infoWindow.marker = marker;
+            infoWindow.title = marker.title;
             infoWindow.setContent('<div>' + marker.title + '</div>');
             infoWindow.open(map,marker);
-            infoWindow.addListener('closeclick', function() {
-              infoWindow.setMarker(null);
-            });
+            // infoWindow.addListener('closeclick', function() {
+            //   infoWindow.setMarker(null);
+            // });
           }
         });
       }
@@ -80,7 +81,7 @@ class MapContainer extends React.Component {
   }
 
   filter(locationType, selectedLocation) {
-    console.log("filter called");
+    console.log("filter called, selectedLocation:" + selectedLocation);
     //let bounds = new google.maps.LatLngBounds();
     let markers = this.state.markers;
     let map = this.state.map;
@@ -92,10 +93,12 @@ class MapContainer extends React.Component {
                 markers[i].setMap(map);
                 if(markers[i].title === selectedLocation) {
                     markers[i].setAnimation(google.maps.Animation.BOUNCE);
+                    google.maps.event.trigger(markers[i], 'click');
                 }
                 else {
                     markers[i].setAnimation(null);
                 }
+
             }
         }
     }
@@ -107,6 +110,7 @@ class MapContainer extends React.Component {
                 markers[i].setMap(map);
                 if(markers[i].title === selectedLocation) {
                     markers[i].setAnimation(google.maps.Animation.BOUNCE);
+                    google.maps.event.trigger(markers[i], 'click');
                 }
                 else {
                     markers[i].setAnimation(null);
@@ -119,6 +123,7 @@ class MapContainer extends React.Component {
             markers[i].setMap(map);
             if(markers[i].title === selectedLocation) {
                 markers[i].setAnimation(google.maps.Animation.BOUNCE);
+                google.maps.event.trigger(markers[i], 'click');
             }
             else {
                 markers[i].setAnimation(null);
