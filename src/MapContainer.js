@@ -61,11 +61,20 @@ class MapContainer extends React.Component {
         });
         markers.push(marker);
         bounds.extend(marker.position);
+        let photoUrl = '';
+        //this.getLocationPhotoUrl(locations[i].foursquareId).then(url => photoUrl = url);
+        let review = '';
+        //this.getLocationTip(locations[i].foursquareId).then(tip => review = tip);
+        console.log("URL:"+photoUrl);
         marker.addListener('click', function() {
           if(infoWindow.marker != marker) {
             infoWindow.marker = marker;
             infoWindow.title = marker.title;
-            infoWindow.setContent('<div>' + marker.title + '</div>');
+            infoWindow.setContent(
+                '<div>' + marker.title + '</div>' +
+                '<div>' + review + '</div>' +
+                '<img src="' + photoUrl + '" alt = "' + marker.title + '"/>'
+            );
             infoWindow.open(map,marker);
             // infoWindow.addListener('closeclick', function() {
             //   infoWindow.setMarker(null);
@@ -76,8 +85,28 @@ class MapContainer extends React.Component {
       map.fitBounds(bounds);
       this.setState({map});
       this.setState({markers});
-      this.filter(this.props.locationType);
+      //this.filter(this.props.locationType);
     });
+  }
+
+  getLocationTip(id) {
+    return fetch(`https://api.foursquare.com/v2/venues/${id}/tips?&client_id=Y0LI1CBBY4K4NZJMC5XFUM4BHC5FXZ0K3SHCF1BSY1UFWBKQ&client_secret=KVZQPGH4OAS0HTLBHKKMGIUJWUNJLRLK2PPENXZFNRV1MJVP&v=20180101`).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        let tip = data.response.tips.items[0].text;
+        console.log("tip : "+tip);
+        return tip;
+    }).catch(e => console.log("ERROR : "+e));
+  }
+
+  getLocationPhotoUrl(id) {
+    return  fetch(`https://api.foursquare.com/v2/venues/${id}/photos?&client_id=Y0LI1CBBY4K4NZJMC5XFUM4BHC5FXZ0K3SHCF1BSY1UFWBKQ&client_secret=KVZQPGH4OAS0HTLBHKKMGIUJWUNJLRLK2PPENXZFNRV1MJVP&v=20180101`).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+      let url = data.response.photos.items[0].prefix + "300x300" + data.response.photos.items[0].suffix;
+      //console.log("URL inside:"+url);
+      return url;
+    }).catch(e => console.log("ERROR : "+e));
   }
 
   filter(locationType, selectedLocation) {
