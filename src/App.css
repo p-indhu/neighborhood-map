@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -7,14 +8,58 @@
   height: 80px;
 }
 
+button {
+     background:none!important;
+     color:inherit;
+     border:none;
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     border-bottom:1px solid #444;
+     cursor: pointer;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+ul {
+  list-style: none;
+  padding: 5%;
+}
+
+li {
+  text-align: left;
+  margin: 0 0 10px 0;
+}
+
+#filter-area {
+  margin: 10px 0;
+}
+
 .App-header {
+  width: 100%;
+  height: 15vh;
   background-color: #222;
   height: 50px;
   padding: 20px;
   color: white;
 }
 
+#menu {
+  width: 100%;
+  height: 10vh;
+  margin: 20px;
+}
+
+#map {
+  height: 75vh;
+}
+
 .App-title {
+  width: 97%;
   font-size: 1.5em;
 }
 
@@ -25,4 +70,50 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+}
+
+aside {
+  width: 70%;
+  position: absolute;
+  transform: translate(-1000px, 0);
+  transition: transform 0.3s ease;
+  background-color: white;
+  font-size: 15px;
+  visibility: hidden;
+}
+
+aside.open {
+  height: 100vh;
+  transform: translate(0,0);
+  visibility: visible;
+}
+
+@media screen and (min-width: 600px) {
+  aside {
+    visibility: visible;
+    width: 30%;
+    height: 100vh;
+    position: relative;
+    transform: translate(0,0);
+  }
+  body {
+    /* display: flex;
+    flex-flow: row nowrap; */
+  }
+  main {
+    width: 70%;
+    flex-grow: 1;
+  }
+  #menu {
+    display: none;
+    height: 0vh;
+  }
+  #map {
+    height: 85vh;
+  }
 }

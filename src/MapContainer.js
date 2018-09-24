@@ -194,13 +194,11 @@ class MapContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <div id="map" style={{width: '100vw', height: '100vh'}}>
+        <div id="map" role="application" style={{width: '100vw'}}>
             {
               this.filter(this.props.locationType, this.props.selectedLocation)
             }
         </div>
-      </div>
     )
   }
 }
