@@ -56,6 +56,7 @@ class App extends Component {
 
     menuClicked(event) {
         document.getElementById('sidebar').classList.toggle('open');
+        document.getElementById('select-filter').focus();
         event.stopPropagation();
     }
 
