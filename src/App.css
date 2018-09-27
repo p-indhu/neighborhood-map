@@ -1,135 +1,117 @@
 .App {
-  text-align: center;
-  display: flex;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-button {
-     background:none!important;
-     color:inherit;
-     border:none;
-     padding:0!important;
-     font: inherit;
-     /*border is optional*/
-     border-bottom:1px solid #444;
-     cursor: pointer;
+    text-align: center;
+    display: flex;
 }
 
 main {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-ul {
-  list-style: none;
-  padding: 5%;
-}
-
-li {
-  text-align: left;
-  margin: 0 0 10px 0;
-}
-
-#filter-area {
-  margin: 10px 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .App-header {
-  width: 100%;
-  min-height: 10vh;
-  max-height: 15vh;
-  background-color: #222;
-  padding: 15px 0;
-  color: white;
-  display: flex;
+    width: 100%;
+    min-height: 10vh;
+    max-height: 15vh;
+    background-color: #222;
+    padding: 15px 0;
+    color: white;
+    display: flex;
 }
 
 .App-title {
-  width: 95%;
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 1em;
+    width: 95%;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 #menu {
-  font-size: 1.5em;
-  width: 5%;
-  height: 5vh;
-  margin: 20px;
-  border-bottom: 0;
-  text-align: right;
+    font-size: 1.5em;
+    width: 5%;
+    height: 5vh;
+    margin: 20px;
+    border-bottom: 0;
+    text-align: right;
 }
 
 #map {
-  height: 80vh;
+    height: 80vh;
 }
 
-.App-title {
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    border-bottom: 1px solid #444;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 5%;
+}
+
+li {
+    text-align: left;
+    margin: 0 0 10px 0;
+}
+
+#filter-area {
+    margin: 10px 0;
+}
+
+/* .App-title {
   width: 97%;
   font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+} */
 
 html, body {
-  height: 100vh;
-  width: 100vw;
+    height: 100vh;
+    width: 100vw;
 }
 
 aside {
-  width: 50%;
-  position: absolute;
-  transform: translate(-1000px, 0);
-  transition: transform 0.3s ease;
-  background-color: black;
-  font-size: 15px;
-  color: white;
-  visibility: hidden;
+    width: 50%;
+    position: absolute;
+    transform: translate(-1000px, 0);
+    transition: transform 0.3s ease;
+    background-color: black;
+    font-size: 15px;
+    color: white;
+    visibility: hidden;
 }
 
 aside.open {
-  height: 100vh;
-  transform: translate(0,0);
-  visibility: visible;
-  z-index: 10;
+    height: 100vh;
+    transform: translate(0,0);
+    visibility: visible;
+    z-index: 10;
 }
 
 @media screen and (min-width: 600px) {
-  aside {
-    visibility: visible;
-    width: 30%;
-    height: 100vh;
-    position: relative;
-    transform: translate(0,0);
-  }
-  body {
-    /* display: flex;
-    flex-flow: row nowrap; */
-  }
-  main {
-    width: 70%;
-    flex-grow: 1;
-  }
-  #menu {
-    display: none;
-    height: 0vh;
-  }
-  #map {
-    height: 80vh;
-  }
-  .App-title {
-    font-size: 2em;
-  }
+    aside {
+        visibility: visible;
+        width: 30%;
+        height: 100vh;
+        position: relative;
+        transform: translate(0,0);
+    }
+
+    main {
+        width: 70%;
+        flex-grow: 1;
+    }
+    #menu {
+        display: none;
+        height: 0vh;
+    }
+    #map {
+        height: 80vh;
+    }
+    .App-title {
+        font-size: 2em;
+    }
 }
