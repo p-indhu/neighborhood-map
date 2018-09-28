@@ -5,7 +5,7 @@ class FilterArea extends Component {
     render() {
         return(
             <div id="filter-area">
-                <label for="select-filter">Select Location Filter  </label>
+                <label htmlFor="select-filter">Select Location Filter  </label>
                 <select id="select-filter" onChange={(event) => this.props.changeLocationType(event)}>
                     <option value='all'>All</option>
                     <option value='restaurants'>Restaurants</option>

@@ -21,9 +21,12 @@ main {
 
 .App-title {
     width: 95%;
+    font-size: 1.2em;
     text-align: center;
     margin-top: 1em;
     margin-bottom: 1em;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
 }
 
 #menu {
@@ -40,6 +43,7 @@ main {
 }
 
 button {
+    text-align: left;
     background: none;
     color: inherit;
     border: none;
@@ -60,7 +64,7 @@ li {
 }
 
 #filter-area {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 /* .App-title {

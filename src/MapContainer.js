@@ -1,5 +1,5 @@
 /* global google */
-import React, { Component } from 'react';
+import React from 'react';
 class MapContainer extends React.Component {
     state = {
         map : {},
@@ -59,19 +59,28 @@ class MapContainer extends React.Component {
                 markers.push(marker);
                 bounds.extend(marker.position);
                 let photoUrl = '';
-                //this.getLocationPhotoUrl(locations[i].foursquareId).then(url => photoUrl = url);
+                this.getLocationPhotoUrl(locations[i].foursquareId).then(url => photoUrl = url);
                 let review = '';
-                //this.getLocationTip(locations[i].foursquareId).then(tip => review = tip);
-                console.log("URL:"+photoUrl);
+                this.getLocationTip(locations[i].foursquareId).then(tip => review = tip);
                 marker.addListener('click', function() {
-                    if(infoWindow.marker != marker) {
+                    if(infoWindow.marker !== marker) {
                         infoWindow.marker = marker;
                         infoWindow.title = marker.title;
-                        infoWindow.setContent(
-                            '<div>' + marker.title + '</div>' +
-                            '<div>' + review + '</div>' +
-                            '<img src="' + photoUrl + '" alt = "' + marker.title + '"/>'
-                        );
+                        if(photoUrl.startsWith('Sorry')) {
+                            infoWindow.setContent(
+                                '<div style="color:green; font-weight: bold;">' + marker.title + '</div>' +
+                                '<div style="color:red;">' + review + '</div>' +
+                                '<div style="color:red;">' + photoUrl + '</div>'
+                            );
+                        }
+                        else {
+                            infoWindow.setContent(
+                                '<div style="color:green; font-weight: bold;">' + marker.title + '</div>' +
+                                '<div>' + review + '</div>' +
+                                '<img src="' + photoUrl + '" alt = "' + marker.title + '"/>'
+                            );
+                        }
+                        infoWindow.setOptions({maxWidth:250});
                         infoWindow.open(map,marker);
                     }
                 });
@@ -90,7 +99,10 @@ class MapContainer extends React.Component {
             let tip = data.response.tips.items[0].text;
             console.log("tip : "+tip);
             return tip;
-        }).catch(e => console.log("ERROR : "+e));
+        }).catch(e => {
+          console.log("ERROR : "+e);
+          return 'Sorry! An error occured when fetching a review';
+        });
     }
 
     //Fetch a location's photo's URL using four square API
@@ -98,15 +110,17 @@ class MapContainer extends React.Component {
         return  fetch(`https://api.foursquare.com/v2/venues/${id}/photos?&client_id=Y0LI1CBBY4K4NZJMC5XFUM4BHC5FXZ0K3SHCF1BSY1UFWBKQ&client_secret=KVZQPGH4OAS0HTLBHKKMGIUJWUNJLRLK2PPENXZFNRV1MJVP&v=20180101`).then(function(response) {
             return response.json();
         }).then(function(data) {
-          let url = data.response.photos.items[0].prefix + "300x300" + data.response.photos.items[0].suffix;
+          let url = data.response.photos.items[0].prefix + "100x100" + data.response.photos.items[0].suffix;
           //console.log("URL inside:"+url);
           return url;
-        }).catch(e => console.log("ERROR : "+e));
+        }).catch(e => {
+          console.log("ERROR : "+e);
+          return 'Sorry! An error occured when fetching the photo';
+        });
     }
 
     // Filter the markers based on the location filter
     filter(locationType, selectedLocation) {
-        console.log("filter called, selectedLocation:" + selectedLocation);
         //let bounds = new google.maps.LatLngBounds();
         let markers = this.state.markers;
         let map = this.state.map;
