@@ -37,7 +37,7 @@ class MapContainer extends React.Component {
         this.getGoogleMaps().then((google) => {
             const initalCenter = {lat: 36.1494732, lng: -115.2480869};
             const map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 13,
+                zoom: 9,
                 center: initalCenter
             });
             let markers = this.state.markers;
@@ -77,7 +77,8 @@ class MapContainer extends React.Component {
                             infoWindow.setContent(
                                 '<div style="color:green; font-weight: bold;">' + marker.title + '</div>' +
                                 '<div>' + review + '</div>' +
-                                '<img src="' + photoUrl + '" alt = "' + marker.title + '"/>'
+                                '<img src="' + photoUrl + '" alt = "' + marker.title + '"/>' +
+                                '<div> Source:FourSquare.com </div>'
                             );
                         }
                         infoWindow.setOptions({maxWidth:250});
@@ -97,7 +98,6 @@ class MapContainer extends React.Component {
             return response.json();
         }).then(function(data) {
             let tip = data.response.tips.items[0].text;
-            console.log("tip : "+tip);
             return tip;
         }).catch(e => {
           console.log("ERROR : "+e);
