@@ -23,7 +23,7 @@ Third party APIs used:
 To get started, install all project dependencies with `npm install`
 
 ## How to run
-* Fork and clone the repository.
+* Clone the repository.
 * Make sure that you have installed all dependencies using `npm install`
 * run `npm run build`
 * run `npm install -g serve`
