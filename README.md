@@ -26,6 +26,7 @@ To get started, install all project dependencies with `npm install`
 * Fork and clone the repository.
 * Make sure that you have installed all dependencies using `npm install`
 * run `npm run build`
+* run `npm install -g serve`
 * start the server with `serve -s build`
 * Drop down offers option to filter locations by type.
 * Clicking a location on the list or the marker on map, displays more information about the location.
